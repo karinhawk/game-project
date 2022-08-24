@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.game-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./images/restaraunt.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 5fr 2fr;
+  row-gap: 0;
+  grid-template-areas: ". . love" "option lizard ." "dialogue dialogue dialogue";
+}
+
+.lizard-div {
+  grid-area: lizard;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(./images/lizard.png);
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.love-bar {
+  grid-area: love;
+  border: 2px solid #933f5f;
+  background-color: pink;
+  padding: 20px;
+}
+.love-bar .love-meter {
+  background-color: red;
+  height: 20px;
+  width: 300px;
+}
+
+.dialogue-options {
+  grid-area: option;
+  border: 2px solid #933f5f;
+  background-color: yellow;
+  padding: 20px;
+}
+
+.dialogue-box {
+  grid-area: dialogue;
+  border: 2px solid #933f5f;
+  background-color: palevioletred;
+  padding: 20px;
+}
