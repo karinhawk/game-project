@@ -10,8 +10,14 @@ export const dialogueArray = [
         likesDialogue: true,
     },
     {
-        playerDialogue: "",
-        lizardDialogue: "a",
+        playerDialogue: "I love sunning on rocks in my spare time",
+        lizardDialogue: "Me too! I love it when my blood heats up",
+        likesDialogue: true,
+    },
+    {
+        playerDialogue: "poop",
+        lizardDialogue: "peepee",
+        likesDialogue: false,
     },
 ];
 

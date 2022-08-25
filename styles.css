@@ -11,10 +11,10 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   display: grid;
-  grid-template-columns: 2fr 4fr 1fr;
+  grid-template-columns: 3fr 4fr 1fr;
   grid-template-rows: 1fr 9fr 3fr;
   row-gap: 0;
-  grid-template-areas: ". lizard love" "option lizard ." "dialogue dialogue dialogue";
+  grid-template-areas: "love lizard lizard" "option lizard lizard" "dialogue dialogue dialogue";
 }
 
 .lizard-div {
@@ -36,16 +36,35 @@
   width: 30vw;
 }
 .love-bar .love-meter {
-  background-color: red;
   height: 20px;
   width: 100%;
+  border: 2px solid #9f0c0c;
+}
+.love-bar .love-meter .love-juice {
+  height: 20px;
+  width: 30%;
+  background-color: red;
 }
 
-.dialogue-options {
+.dialogue-options-grid {
   grid-area: option;
   border: 2px solid #933f5f;
-  background-color: yellow;
+  background-color: #933d68;
+  color: white;
   padding: 20px;
+  height: 50%;
+  margin: 30px;
+}
+.dialogue-options-grid h1 {
+  font-size: 20px;
+  margin: 10px;
+}
+.dialogue-options-grid li {
+  font-size: 20px;
+  margin: 15px;
+}
+.dialogue-options-grid li:hover {
+  font-size: 150%;
 }
 
 .dialogue-box {
@@ -84,7 +103,12 @@
     flex-direction: column;
   }
 
-  .dialogue-options {
+  .dialogue-options-grid {
     max-width: 100vw;
+    margin: 0;
+    height: 100%;
+  }
+  .dialogue-options-grid h1 {
+    font-size: 30px;
   }
 }
