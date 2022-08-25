@@ -15,16 +15,16 @@
     grid-template-rows: 1fr 9fr 3fr;
     row-gap: 0;
     grid-template-areas: 
-    "love lizard lizard"
-    "option lizard lizard"
+    "love capybara capybara"
+    "option capybara capybara"
     "dialogue dialogue dialogue";
 }
-.lizard-div {
-    grid-area: lizard;
+.capybara-div {
+    grid-area: capybara;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(./images/lizard.png);
+    background-image: url(./images/capybara.png);
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -58,15 +58,18 @@
     height: 50%;
     margin: 30px;
     h1 {
-        font-size: 20px;
+        font-size: 30px;
         margin: 10px;
     }
-    li {
-        font-size: 20px;
-        margin: 15px;;
-    }
-    li:hover {
-        font-size: 150%;
+    .options-box {
+        list-style: none;
+        li {
+            font-size: 25px;
+            margin: 15px;
+        }
+        li:hover {
+            font-size: 120%;
+        }
     }
 }
 
@@ -75,6 +78,8 @@
     border: 2px solid rgb(147, 63, 95);
     background-color: palevioletred;
     padding: 20px;
+    color: white;
+    font-size: 40px;
 }
 
 @media screen and (max-width: 720px) {
@@ -101,8 +106,8 @@
     .dialogue-box {
         max-width: 100vw;
     }
-    .lizard-div {
-        max-width: 100%;
+    .capybara-div {
+        width: 100%;
         height: auto;
         flex-direction: column;
     }

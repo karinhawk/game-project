@@ -1,23 +1,28 @@
 export const dialogueArray = [
     {
         playerDialogue: "Tell me about yourself",
-        lizardDialogue: "I don't like talking about myself",
+        capybaraDialogue: "I don't like talking about myself",
         likesDialogue: false,
     },
     {
         playerDialogue: "You're a lizard",
-        lizardDialogue: "I guess",
+        capybaraDialogue: "I guess",
         likesDialogue: true,
     },
     {
         playerDialogue: "I love sunning on rocks in my spare time",
-        lizardDialogue: "Me too! I love it when my blood heats up",
+        capybaraDialogue: "Me too! I love it when my blood heats up",
         likesDialogue: true,
     },
     {
         playerDialogue: "poop",
-        lizardDialogue: "peepee",
+        capybaraDialogue: "peepee",
         likesDialogue: false,
+    },
+    {
+        playerDialogue: "Pipi und Kaka",
+        capybaraDialogue: "in Pipikakaland",
+        likesDialogue: true,
     },
 ];
 
