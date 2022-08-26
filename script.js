@@ -28,11 +28,10 @@ import {
 
 console.log(dialogueArray);
 
-const dialogueOption1 = document.querySelector("#dialogue-option-1");
-const dialogueOption2 = document.querySelector("#dialogue-option-2");
+const dialogueOptions = document.querySelectorAll(".dialogue-options");
 const dialogueBox = document.querySelector(".dialogue-box");
 const loveBar = document.querySelector(".love-juice");
-const optionsBox = document.querySelector(".options-box")
+const tableImage = document.querySelector(".capybara-div");
 
 let availableDialogue = [...dialogueArray];
 console.log(availableDialogue);
@@ -43,6 +42,8 @@ let objectIndex1;
 let objectIndex2;
 let capybaraDialogue1 = "";
 let capybaraDialogue2 = "";
+
+
 
 // handleRandomizer();
 
@@ -61,23 +62,35 @@ let capybaraDialogue2 = "";
 
 
 const handleUsedDialogue = () => {
-    let removedDialogue1 = availableDialogue.splice(objectIndex1, 1);
-    let removedDialogue2 = availableDialogue.splice(objectIndex2, 1);
-    console.log("these have been removed", removedDialogue1, removedDialogue2);
+    //if else here so doesnt remove both
+    if (event.target == dialogueOptions[0]) {
+        availableDialogue.splice(objectIndex1, 1);
+    } else if (event.target == dialogueOptions[1]) {
+        availableDialogue.splice(objectIndex2, 1);
+    }
     console.log("these are the remaining ones", availableDialogue);
+}
+
+const handleGameOver = () => {
+    dialogueBox.removeEventListener("click", doesRandomizerRun);
+    tableImage.style.backgroundImage = "./images/just-table.png";
+}
+
+const doesRandomizerRun = () => {
+    if (availableDialogue.length <= 1) {
+        handleGameOver();
+    } else {
+        handleRandomizer();
+    }    
 }
 
 const handleRandomizer = (event) => {
     console.log("dialogue box!");
-    randomizedDialogue1 = availableDialogue[Math.floor(Math.random()*availableDialogue.length)];
-    randomizedDialogue2 = availableDialogue[Math.floor(Math.random()*availableDialogue.length)];
+    randomizedDialogue1 = availableDialogue[Math.floor(Math.random() * availableDialogue.length)];
+    randomizedDialogue2 = availableDialogue[Math.floor(Math.random() * availableDialogue.length)];
     objectIndex1 = availableDialogue.indexOf(randomizedDialogue1);
     objectIndex2 = availableDialogue.indexOf(randomizedDialogue2);
-    console.log(objectIndex1, "this is object1", objectIndex2, "this is object2");
-    console.log("chosen options array", randomizedDialogue1, randomizedDialogue2);
-
-    //if available array is empty then call gameover function
-
+    
     if (randomizedDialogue1 !== randomizedDialogue2) {
 
         let playerDialogue1 = randomizedDialogue1.playerDialogue;
@@ -85,69 +98,61 @@ const handleRandomizer = (event) => {
         capybaraDialogue1 = randomizedDialogue1.capybaraDialogue;
         capybaraDialogue2 = randomizedDialogue2.capybaraDialogue;
         console.log(capybaraDialogue1);
-        dialogueOption1.innerHTML = playerDialogue1;
-        dialogueOption2.innerHTML = playerDialogue2;
+        dialogueOptions[0].innerHTML = playerDialogue1;
+        dialogueOptions[1].innerHTML = playerDialogue2;
     } else {
         handleRandomizer();
     }
 }
 
 
-
-const handleDialogue1Chosen = (event) => {
-    console.log("no.1");
-    console.log(capybaraDialogue1);
-   capybaraDialogue1 = randomizedDialogue1.capybaraDialogue;
-   dialogueBox.innerHTML = capybaraDialogue1;
-   handleLoveBar1();
-   handleUsedDialogue();
-}
-
-const handleDialogue2Chosen = (event) => {
-    console.log("no.2!");
-    console.log(capybaraDialogue2);
-   capybaraDialogue2 = randomizedDialogue2.capybaraDialogue;
-   dialogueBox.innerHTML = capybaraDialogue2;
-   handleLoveBar2();
-   handleUsedDialogue();
+const handleDialogueChosen = (event) => {
+    if (event.target == dialogueOptions[0]) {
+        console.log("got here");
+        dialogueBox.innerHTML = capybaraDialogue1;
+    } else {
+        console.log("got here instead");
+        dialogueBox.innerHTML = capybaraDialogue2;
+    }
+    handleUsedDialogue();
+    handleLoveBar();
 }
 
 
 
-//love bar. if likesDialogue is true, increase love juice by 5%
-//switch case???????
-const handleLoveBar1 = () => {
-    console.log("getting to love1!");
-    let width = loveBar.style.width.replace("%", "");
-    if (randomizedDialogue1.likesDialogue === true) {
-        width = parseInt(width) + 5;
-        width = width + '%';
-        loveBar.style.width = width;
-        console.log("he likes!!");
+const handleLoveBar = () => {
+    //guard clause here!!
+    if (dialogueOptions[0]) {
+        if (randomizedDialogue1.likesDialogue === true) {
+            console.log("likes");
+        } else {
+            console.log("hates!");
+        }
+    } else if (randomizedDialogue2) {
+        console.log("likes");
     } else {
         console.log("hates!");
-        width = parseInt(width) - 5;
-        loveBar.style.width = width + '%';
     }
 }
-
-const handleLoveBar2 = () => {
-    loveBar.style.width = '30%';
-    console.log("getting to love2!");
-    if (randomizedDialogue2.likesDialogue === true) {
-        console.log("he likes!!");
-        loveBar.style.width += '5%';
-    } else {
-        console.log("hates!");
-        loveBar.style.width -= '5%';
-    }
-}
-
-
+//     console.log("getting to love1!");
+//     let width = loveBar.style.width.replace("%", "");
+//     if (randomizedDialogue1.likesDialogue === true) {
+//         width = parseInt(width) + 5;
+//         width = width + '%';
+//         loveBar.style.width = width;
+//         console.log("he likes!!");
+//     } else {
+//         console.log("hates!");
+//         width = parseInt(width) - 5;
+//         loveBar.style.width = width + '%';
+//     }
 
 
-dialogueOption1.addEventListener("click", handleDialogue1Chosen);
 
-dialogueOption2.addEventListener("click", handleDialogue2Chosen);
 
-dialogueBox.addEventListener("click", handleRandomizer);
+
+dialogueOptions.forEach((option) => {
+    option.addEventListener("click", handleDialogueChosen);
+});
+
+dialogueBox.addEventListener("click", doesRandomizerRun);

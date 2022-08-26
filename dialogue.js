@@ -5,18 +5,18 @@ export const dialogueArray = [
         likesDialogue: false,
     },
     {
-        playerDialogue: "You're a lizard",
+        playerDialogue: "You're a capybara",
         capybaraDialogue: "I guess",
         likesDialogue: true,
     },
     {
-        playerDialogue: "I love sunning on rocks in my spare time",
-        capybaraDialogue: "Me too! I love it when my blood heats up",
+        playerDialogue: "I love chilling",
+        capybaraDialogue: "Me too!",
         likesDialogue: true,
     },
     {
-        playerDialogue: "poop",
-        capybaraDialogue: "peepee",
+        playerDialogue: "BaryCapa",
+        capybaraDialogue: "No",
         likesDialogue: false,
     },
     {
