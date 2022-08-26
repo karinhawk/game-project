@@ -25,7 +25,10 @@ var randomizedDialogue2 = {};
 var objectIndex1;
 var objectIndex2;
 var capybaraDialogue1 = "";
-var capybaraDialogue2 = ""; // handleRandomizer();
+var capybaraDialogue2 = "";
+var capybaraResponse = "";
+var usedDialogue = "";
+var loveWidth = loveBar.style.width; // handleRandomizer();
 //dialoguerandomizer event
 //handleDialogueChosen- output dialogue value of dialogue key
 //then call function to change love bar - true and false values and changing of bar view width:)
@@ -50,11 +53,16 @@ var handleUsedDialogue = function handleUsedDialogue() {
 
 var handleGameOver = function handleGameOver() {
   dialogueBox.removeEventListener("click", doesRandomizerRun);
-  tableImage.style.backgroundImage = "./images/just-table.png";
+  tableImage.style.backgroundImage = "url(./images/just-table.png)";
+  dialogueBox.innerHTML = "Capybara got bored of this awful date and left...";
 };
 
 var doesRandomizerRun = function doesRandomizerRun() {
+  dialogueBox.innerHTML = "";
+
   if (availableDialogue.length <= 1) {
+    dialogueOptions[0].innerHTML = "";
+    dialogueOptions[1].innerHTML = "";
     handleGameOver();
   } else {
     handleRandomizer();
@@ -73,7 +81,6 @@ var handleRandomizer = function handleRandomizer(event) {
     var playerDialogue2 = randomizedDialogue2.playerDialogue;
     capybaraDialogue1 = randomizedDialogue1.capybaraDialogue;
     capybaraDialogue2 = randomizedDialogue2.capybaraDialogue;
-    console.log(capybaraDialogue1);
     dialogueOptions[0].innerHTML = playerDialogue1;
     dialogueOptions[1].innerHTML = playerDialogue2;
   } else {
@@ -84,44 +91,42 @@ var handleRandomizer = function handleRandomizer(event) {
 var handleDialogueChosen = function handleDialogueChosen(event) {
   if (event.target == dialogueOptions[0]) {
     console.log("got here");
-    dialogueBox.innerHTML = capybaraDialogue1;
+    usedDialogue = randomizedDialogue1;
+    capybaraResponse = capybaraDialogue1;
   } else {
     console.log("got here instead");
-    dialogueBox.innerHTML = capybaraDialogue2;
+    usedDialogue = randomizedDialogue2;
+    capybaraResponse = capybaraDialogue2;
   }
 
+  handleTypingAnimation(0);
   handleUsedDialogue();
   handleLoveBar();
 };
 
-var handleLoveBar = function handleLoveBar() {
-  //guard clause here!!
-  if (dialogueOptions[0]) {
-    if (randomizedDialogue1.likesDialogue === true) {
-      console.log("likes");
-    } else {
-      console.log("hates!");
-    }
-  } else if (randomizedDialogue2) {
-    console.log("likes");
-  } else {
-    console.log("hates!");
-  }
-}; //     console.log("getting to love1!");
-//     let width = loveBar.style.width.replace("%", "");
-//     if (randomizedDialogue1.likesDialogue === true) {
-//         width = parseInt(width) + 5;
-//         width = width + '%';
-//         loveBar.style.width = width;
-//         console.log("he likes!!");
-//     } else {
-//         console.log("hates!");
-//         width = parseInt(width) - 5;
-//         loveBar.style.width = width + '%';
-//     }
+var handleTypingAnimation = function handleTypingAnimation(i) {
+  console.log(capybaraResponse.length);
 
+  if (i < capybaraResponse.length) {
+    console.log("typing");
+    dialogueBox.innerHTML += capybaraResponse.charAt(i);
+    i++;
+    setTimeout(handleTypingAnimation, 50, i);
+  }
+};
+
+var handleLoveBar = function handleLoveBar() {
+  if (usedDialogue.likesDialogue === true) {
+    loveWidth += "5%";
+  }
+
+  if (usedDialogue.likesDialogue !== true) {
+    loveWidth -= "5%";
+  }
+};
 
 dialogueOptions.forEach(function (option) {
   option.addEventListener("click", handleDialogueChosen);
 });
-dialogueBox.addEventListener("click", doesRandomizerRun);
+dialogueBox.addEventListener("click", doesRandomizerRun); //switch case of what mood- dependent on width of lovebar
+//case percentage of love bar - 25% aloof 50% friendly 75% flirty 90% romantic

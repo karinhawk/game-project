@@ -63,11 +63,11 @@
   list-style: none;
 }
 .dialogue-options-grid .options-box li {
-  font-size: 25px;
-  margin: 15px;
+  font-size: 20px;
+  margin: 10px;
 }
 .dialogue-options-grid .options-box li:hover {
-  font-size: 120%;
+  font-size: 25px;
 }
 
 .dialogue-box {
