@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -31,43 +32,39 @@
 .love-bar {
   grid-area: love;
   border: 2px solid #933f5f;
+  border-radius: 8px;
   background-color: pink;
   padding: 20px;
   width: 30vw;
 }
 .love-bar .love-meter {
-  height: 20px;
-  width: 100%;
-  border: 2px solid #9f0c0c;
-}
-.love-bar .love-meter .love-juice {
-  height: 20px;
-  width: 30%;
-  background-color: red;
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.26) inset;
 }
 
 .dialogue-options-grid {
   grid-area: option;
   border: 2px solid #933f5f;
+  border-radius: 10px;
   background-color: #933d68;
   color: white;
   padding: 20px;
   height: 50%;
   margin: 30px;
 }
-.dialogue-options-grid h1 {
-  font-size: 30px;
-  margin: 10px;
-}
 .dialogue-options-grid .options-box {
   list-style: none;
+  text-align: center;
+  padding: 10px;
 }
-.dialogue-options-grid .options-box li {
-  font-size: 20px;
-  margin: 10px;
+.dialogue-options-grid .options-box .dialogue-options {
+  font-size: 120%;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
-.dialogue-options-grid .options-box li:hover {
-  font-size: 25px;
+.dialogue-options-grid .options-box .dialogue-options:hover {
+  font-weight: 700;
 }
 
 .dialogue-box {
@@ -76,7 +73,7 @@
   background-color: palevioletred;
   padding: 20px;
   color: white;
-  font-size: 40px;
+  font-size: 30px;
 }
 
 @media screen and (max-width: 720px) {
@@ -86,8 +83,8 @@
     max-width: 100vw;
     background-size: cover;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 5fr 2fr;
-    grid-template-areas: "love" "dialogue" "lizard" "option";
+    grid-template-rows: 1fr 1fr 5fr 1fr;
+    grid-template-areas: "love" "dialogue" "capybara" "option";
   }
 
   .love-bar {
@@ -100,6 +97,7 @@
 
   .dialogue-box {
     max-width: 100vw;
+    font-size: 20px;
   }
 
   .capybara-div {
@@ -113,7 +111,8 @@
     margin: 0;
     height: 100%;
   }
-  .dialogue-options-grid h1 {
-    font-size: 30px;
+  .dialogue-options-grid .dialogue-options {
+    font-size: 20px;
+    margin: 0;
   }
 }

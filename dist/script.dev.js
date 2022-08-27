@@ -13,13 +13,13 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 console.log(_dialogue.dialogueArray);
 var dialogueOptions = document.querySelectorAll(".dialogue-options");
 var dialogueBox = document.querySelector(".dialogue-box");
-var loveBar = document.querySelector(".love-juice");
+var loveBar = document.querySelector(".love-meter");
 var tableImage = document.querySelector(".capybara-div");
+var playerThoughts = document.querySelector(".player-thoughts");
 
 var availableDialogue = _toConsumableArray(_dialogue.dialogueArray);
 
-console.log(availableDialogue); //let usedDialogue = "";
-
+console.log(availableDialogue);
 var randomizedDialogue1 = {};
 var randomizedDialogue2 = {};
 var objectIndex1;
@@ -28,7 +28,8 @@ var capybaraDialogue1 = "";
 var capybaraDialogue2 = "";
 var capybaraResponse = "";
 var usedDialogue = "";
-var loveWidth = loveBar.style.width; // handleRandomizer();
+var clicks = 0; // let loveWidth = loveBar.style.width;
+// handleRandomizer();
 //dialoguerandomizer event
 //handleDialogueChosen- output dialogue value of dialogue key
 //then call function to change love bar - true and false values and changing of bar view width:)
@@ -40,12 +41,13 @@ var loveWidth = loveBar.style.width; // handleRandomizer();
 //math.random is 0-1 so times it by number of objects in array
 //changes innerhtml of dialogue options box :)
 
-var handleUsedDialogue = function handleUsedDialogue() {
-  //if else here so doesnt remove both
-  if (event.target == dialogueOptions[0]) {
+var handleUsedDialogue = function handleUsedDialogue(event) {
+  if (dialogueOptions[0]) {
     availableDialogue.splice(objectIndex1, 1);
-  } else if (event.target == dialogueOptions[1]) {
+    console.log("removed 1", randomizedDialogue1);
+  } else if (dialogueOptions[1]) {
     availableDialogue.splice(objectIndex2, 1);
+    console.log("removed 2", randomizedDialogue2);
   }
 
   console.log("these are the remaining ones", availableDialogue);
@@ -58,6 +60,7 @@ var handleGameOver = function handleGameOver() {
 };
 
 var doesRandomizerRun = function doesRandomizerRun() {
+  dialogueBox.style.color = "white";
   dialogueBox.innerHTML = "";
 
   if (availableDialogue.length <= 1) {
@@ -89,12 +92,13 @@ var handleRandomizer = function handleRandomizer(event) {
 };
 
 var handleDialogueChosen = function handleDialogueChosen(event) {
+  dialogueOptions[0].innerHTML = "";
+  dialogueOptions[1].innerHTML = "";
+
   if (event.target == dialogueOptions[0]) {
-    console.log("got here");
     usedDialogue = randomizedDialogue1;
     capybaraResponse = capybaraDialogue1;
   } else {
-    console.log("got here instead");
     usedDialogue = randomizedDialogue2;
     capybaraResponse = capybaraDialogue2;
   }
@@ -108,7 +112,6 @@ var handleTypingAnimation = function handleTypingAnimation(i) {
   console.log(capybaraResponse.length);
 
   if (i < capybaraResponse.length) {
-    console.log("typing");
     dialogueBox.innerHTML += capybaraResponse.charAt(i);
     i++;
     setTimeout(handleTypingAnimation, 50, i);
@@ -117,16 +120,80 @@ var handleTypingAnimation = function handleTypingAnimation(i) {
 
 var handleLoveBar = function handleLoveBar() {
   if (usedDialogue.likesDialogue === true) {
-    loveWidth += "5%";
+    loveBar.value += 30;
   }
 
   if (usedDialogue.likesDialogue !== true) {
-    loveWidth -= "5%";
+    loveBar.value -= 5;
+  }
+
+  if (loveBar.value >= 100) {
+    handleWin();
+  }
+};
+
+var handleBlush = function handleBlush() {
+  setTimeout(function () {
+    tableImage.style.backgroundImage = "url(./images/blush-capy.png)";
+  }, 1000);
+  dialogueBox.innerHTML = "*smooch*";
+};
+
+var handleWin = function handleWin() {
+  dialogueBox.removeEventListener("click", doesRandomizerRun);
+  setTimeout(function () {
+    tableImage.style.backgroundImage = "url(./images/front-capy.png)";
+    handleBlush();
+  }, 1000);
+};
+
+var capybaraClicked = function capybaraClicked(event) {
+  dialogueBox.innerHTML = "";
+  dialogueBox.style.color = "pink";
+  dialogueBox.innerHTML = "A very handsome capybara";
+
+  if (loveBar.value >= 100) {
+    dialogueBox.innerHTML = "does this capybara have any personal space?";
+  }
+};
+
+var loveBarClicked = function loveBarClicked(event) {
+  clicks++;
+  dialogueBox.innerHTML = "";
+  dialogueBox.style.color = "pink";
+};
+
+var loveBarHarassed = function loveBarHarassed(event) {
+  dialogueBox.innerHTML = "";
+
+  if (clicks == 1) {
+    dialogueBox.innerHTML = "Don't click up here, click down there.";
+  }
+
+  if (clicks == 3) {
+    dialogueBox.innerHTML = "You can't force love to happen. Stop messing around up here.";
+  }
+
+  if (clicks == 5) {
+    dialogueBox.innerHTML = "I think you're bullying me now!!";
+  }
+
+  if (clicks == 8) {
+    dialogueBox.innerHTML = "You're a HORRIBLE PERSON";
+  }
+
+  if (clicks >= 10) {
+    dialogueBox.innerHTML = "...";
   }
 };
 
 dialogueOptions.forEach(function (option) {
   option.addEventListener("click", handleDialogueChosen);
 });
-dialogueBox.addEventListener("click", doesRandomizerRun); //switch case of what mood- dependent on width of lovebar
+dialogueBox.addEventListener("click", doesRandomizerRun);
+tableImage.addEventListener("click", capybaraClicked);
+loveBar.addEventListener("click", loveBarClicked);
+loveBar.addEventListener("click", loveBarHarassed); //switch case of what mood- dependent on width of lovebar
 //case percentage of love bar - 25% aloof 50% friendly 75% flirty 90% romantic
+//click capybara
+// click counter easter egg on love meter

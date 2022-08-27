@@ -1,26 +1,6 @@
-//goals for today -    SORT THE BLOODY LOVE BAR ; PSEUDOCODE LEVELS OF AFFECTION
-
-
-//BUGS!!!!!!!!!!
-//
-
 //if have time- have a main menu!
 //have some dialogue to click on at the start
 
-// two dialogue options one good and one bad, if good then make love bar go up by 1 point
-// say something good about capybaras and you get 2 points!
-// elements on page= capybara, table, background, lovebar, dialogue options, dialogue box
-
-//love bar- change width of div
-//array of dialogue options
-//each option has a different response
-//randomize array and choose 1 and 2 each time?
-//use math.random to pull same amount of random numbers that the length of the array is, then
-
-//make array (have in separate file!) of object value pairs- options and responses
-
-//maybe do not able to choose the same player dialogue again
-// if you run out of dialogue then the game is over :)
 
 import {
     dialogueArray
@@ -30,12 +10,13 @@ console.log(dialogueArray);
 
 const dialogueOptions = document.querySelectorAll(".dialogue-options");
 const dialogueBox = document.querySelector(".dialogue-box");
-const loveBar = document.querySelector(".love-juice");
+const loveBar = document.querySelector(".love-meter");
 const tableImage = document.querySelector(".capybara-div");
+const playerThoughts = document.querySelector(".player-thoughts")
 
 let availableDialogue = [...dialogueArray];
 console.log(availableDialogue);
-//let usedDialogue = "";
+
 let randomizedDialogue1 = {};
 let randomizedDialogue2 = {};
 let objectIndex1;
@@ -44,7 +25,8 @@ let capybaraDialogue1 = "";
 let capybaraDialogue2 = "";
 let capybaraResponse = "";
 let usedDialogue = "";
-let loveWidth = loveBar.style.width;
+let clicks = 0;
+// let loveWidth = loveBar.style.width;
 
 
 
@@ -64,12 +46,13 @@ let loveWidth = loveBar.style.width;
 //changes innerhtml of dialogue options box :)
 
 
-const handleUsedDialogue = () => {
-    //if else here so doesnt remove both
-    if (event.target == dialogueOptions[0]) {
+const handleUsedDialogue = (event) => {
+    if (dialogueOptions[0]) {
         availableDialogue.splice(objectIndex1, 1);
-    } else if (event.target == dialogueOptions[1]) {
+        console.log("removed 1", randomizedDialogue1);
+    } else if (dialogueOptions[1]) {
         availableDialogue.splice(objectIndex2, 1);
+        console.log("removed 2", randomizedDialogue2);
     }
     console.log("these are the remaining ones", availableDialogue);
 }
@@ -81,6 +64,7 @@ const handleGameOver = () => {
 }
 
 const doesRandomizerRun = () => {
+    dialogueBox.style.color = ("white");
     dialogueBox.innerHTML = "";
     if (availableDialogue.length <= 1) {
         dialogueOptions[0].innerHTML = "";
@@ -88,7 +72,7 @@ const doesRandomizerRun = () => {
         handleGameOver();
     } else {
         handleRandomizer();
-    }    
+    }
 }
 
 const handleRandomizer = (event) => {
@@ -97,7 +81,7 @@ const handleRandomizer = (event) => {
     randomizedDialogue2 = availableDialogue[Math.floor(Math.random() * availableDialogue.length)];
     objectIndex1 = availableDialogue.indexOf(randomizedDialogue1);
     objectIndex2 = availableDialogue.indexOf(randomizedDialogue2);
-    
+
     if (randomizedDialogue1 !== randomizedDialogue2) {
 
         let playerDialogue1 = randomizedDialogue1.playerDialogue;
@@ -113,12 +97,12 @@ const handleRandomizer = (event) => {
 
 
 const handleDialogueChosen = (event) => {
+    dialogueOptions[0].innerHTML = "";
+    dialogueOptions[1].innerHTML = "";
     if (event.target == dialogueOptions[0]) {
-        console.log("got here");
         usedDialogue = randomizedDialogue1;
         capybaraResponse = capybaraDialogue1;
     } else {
-        console.log("got here instead");
         usedDialogue = randomizedDialogue2;
         capybaraResponse = capybaraDialogue2;
     }
@@ -129,22 +113,74 @@ const handleDialogueChosen = (event) => {
 
 const handleTypingAnimation = (i) => {
     console.log(capybaraResponse.length);
-        if (i < capybaraResponse.length) {
-            console.log("typing");
-          dialogueBox.innerHTML += capybaraResponse.charAt(i);
-          i++;
-          setTimeout(handleTypingAnimation, 50, i);
-        }
+    if (i < capybaraResponse.length) {
+        dialogueBox.innerHTML += capybaraResponse.charAt(i);
+        i++;
+        setTimeout(handleTypingAnimation, 50, i);
+    }
 }
 
 const handleLoveBar = () => {
     if (usedDialogue.likesDialogue === true) {
-        loveWidth += ("5%");
-    } 
+        loveBar.value += 30;
+    }
     if (usedDialogue.likesDialogue !== true) {
-        loveWidth -= ("5%");
+        loveBar.value -= 5;
+    }
+    if (loveBar.value >= 100) {
+        handleWin();
     }
 }
+
+const handleBlush = () => {
+    setTimeout(function () {
+        tableImage.style.backgroundImage = "url(./images/blush-capy.png)";
+    }, 1000);
+    dialogueBox.innerHTML = "*smooch*";
+}
+
+const handleWin = () => {
+    dialogueBox.removeEventListener("click", doesRandomizerRun);
+    setTimeout(function () {
+        tableImage.style.backgroundImage = "url(./images/front-capy.png)";
+        handleBlush();
+    }, 1000);
+}
+
+const capybaraClicked = (event) => {
+    dialogueBox.innerHTML = "";
+    dialogueBox.style.color = ("pink");
+    dialogueBox.innerHTML = "A very handsome capybara"
+    if (loveBar.value >= 100) {
+        dialogueBox.innerHTML = "does this capybara have any personal space?"
+    }
+}
+
+const loveBarClicked = (event) => {
+    clicks++;
+    dialogueBox.innerHTML = "";
+    dialogueBox.style.color = ("pink");
+}
+
+const loveBarHarassed = (event) => {
+    dialogueBox.innerHTML = "";
+    if (clicks == 1) {
+        dialogueBox.innerHTML = "Don't click up here, click down there."
+    }
+    if (clicks == 3) {
+        dialogueBox.innerHTML = "You can't force love to happen. Stop messing around up here."
+    }
+    if (clicks == 5) {
+        dialogueBox.innerHTML = "I think you're bullying me now!!"
+    }
+    if (clicks == 8) {
+        dialogueBox.innerHTML = "You're a HORRIBLE PERSON"
+    }
+    if (clicks >= 10) {
+        dialogueBox.innerHTML = "..."
+    }
+}
+
 
 
 dialogueOptions.forEach((option) => {
@@ -153,5 +189,12 @@ dialogueOptions.forEach((option) => {
 
 dialogueBox.addEventListener("click", doesRandomizerRun);
 
+tableImage.addEventListener("click", capybaraClicked);
+
+loveBar.addEventListener("click", loveBarClicked);
+loveBar.addEventListener("click", loveBarHarassed);
+
 //switch case of what mood- dependent on width of lovebar
 //case percentage of love bar - 25% aloof 50% friendly 75% flirty 90% romantic
+//click capybara
+// click counter easter egg on love meter
