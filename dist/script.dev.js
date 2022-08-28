@@ -15,7 +15,7 @@ var dialogueOptions = document.querySelectorAll(".dialogue-options");
 var dialogueBox = document.querySelector(".dialogue-box");
 var loveBar = document.querySelector(".love-meter");
 var tableImage = document.querySelector(".capybara-div");
-var playerThoughts = document.querySelector(".player-thoughts");
+var dialogueOptionsBox = document.querySelector(".options-box");
 
 var availableDialogue = _toConsumableArray(_dialogue.dialogueArray);
 
@@ -28,18 +28,7 @@ var capybaraDialogue1 = "";
 var capybaraDialogue2 = "";
 var capybaraResponse = "";
 var usedDialogue = "";
-var clicks = 0; // let loveWidth = loveBar.style.width;
-// handleRandomizer();
-//dialoguerandomizer event
-//handleDialogueChosen- output dialogue value of dialogue key
-//then call function to change love bar - true and false values and changing of bar view width:)
-//for the next set of options
-//when click dialogue box call randomiser function
-//pull items from array
-//happens on start up and when you click on capybara dialogue in dialogue box
-//math.random then pull that number from dialogue array TIMES 2
-//math.random is 0-1 so times it by number of objects in array
-//changes innerhtml of dialogue options box :)
+var clicks = 0;
 
 var handleUsedDialogue = function handleUsedDialogue(event) {
   if (dialogueOptions[0]) {
@@ -57,6 +46,7 @@ var handleGameOver = function handleGameOver() {
   dialogueBox.removeEventListener("click", doesRandomizerRun);
   tableImage.style.backgroundImage = "url(./images/just-table.png)";
   dialogueBox.innerHTML = "Capybara got bored of this awful date and left...";
+  returnToInstructions();
 };
 
 var doesRandomizerRun = function doesRandomizerRun() {
@@ -145,6 +135,7 @@ var handleWin = function handleWin() {
     tableImage.style.backgroundImage = "url(./images/front-capy.png)";
     handleBlush();
   }, 1000);
+  returnToInstructions();
 };
 
 var capybaraClicked = function capybaraClicked(event) {
@@ -161,7 +152,8 @@ var loveBarClicked = function loveBarClicked(event) {
   clicks++;
   dialogueBox.innerHTML = "";
   dialogueBox.style.color = "pink";
-};
+}; //make switch case!!
+
 
 var loveBarHarassed = function loveBarHarassed(event) {
   dialogueBox.innerHTML = "";
@@ -187,6 +179,22 @@ var loveBarHarassed = function loveBarHarassed(event) {
   }
 };
 
+var returnToInstructions = function returnToInstructions() {
+  var createdButton = document.createElement('a');
+  createdButton.href = "index.html";
+  var link = document.createTextNode("Go on another date?");
+  createdButton.appendChild(link);
+  createdButton.className += "button-class";
+  styleButton;
+  dialogueOptionsBox.appendChild(createdButton);
+};
+
+var styleButton = function styleButton() {
+  link.style.fontSize = "30px";
+  link.style.color = "white";
+  link.style.border = "1px solid pink";
+};
+
 dialogueOptions.forEach(function (option) {
   option.addEventListener("click", handleDialogueChosen);
 });
@@ -195,5 +203,3 @@ tableImage.addEventListener("click", capybaraClicked);
 loveBar.addEventListener("click", loveBarClicked);
 loveBar.addEventListener("click", loveBarHarassed); //switch case of what mood- dependent on width of lovebar
 //case percentage of love bar - 25% aloof 50% friendly 75% flirty 90% romantic
-//click capybara
-// click counter easter egg on love meter

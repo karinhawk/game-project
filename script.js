@@ -12,7 +12,8 @@ const dialogueOptions = document.querySelectorAll(".dialogue-options");
 const dialogueBox = document.querySelector(".dialogue-box");
 const loveBar = document.querySelector(".love-meter");
 const tableImage = document.querySelector(".capybara-div");
-const playerThoughts = document.querySelector(".player-thoughts")
+const dialogueOptionsBox = document.querySelector(".options-box");
+
 
 let availableDialogue = [...dialogueArray];
 console.log(availableDialogue);
@@ -26,24 +27,6 @@ let capybaraDialogue2 = "";
 let capybaraResponse = "";
 let usedDialogue = "";
 let clicks = 0;
-// let loveWidth = loveBar.style.width;
-
-
-
-// handleRandomizer();
-
-//dialoguerandomizer event
-//handleDialogueChosen- output dialogue value of dialogue key
-//then call function to change love bar - true and false values and changing of bar view width:)
-//for the next set of options
-
-//when click dialogue box call randomiser function
-//pull items from array
-
-//happens on start up and when you click on capybara dialogue in dialogue box
-//math.random then pull that number from dialogue array TIMES 2
-//math.random is 0-1 so times it by number of objects in array
-//changes innerhtml of dialogue options box :)
 
 
 const handleUsedDialogue = (event) => {
@@ -61,6 +44,7 @@ const handleGameOver = () => {
     dialogueBox.removeEventListener("click", doesRandomizerRun);
     tableImage.style.backgroundImage = "url(./images/just-table.png)";
     dialogueBox.innerHTML = "Capybara got bored of this awful date and left..."
+    returnToInstructions();
 }
 
 const doesRandomizerRun = () => {
@@ -145,6 +129,7 @@ const handleWin = () => {
         tableImage.style.backgroundImage = "url(./images/front-capy.png)";
         handleBlush();
     }, 1000);
+    returnToInstructions();
 }
 
 const capybaraClicked = (event) => {
@@ -162,6 +147,7 @@ const loveBarClicked = (event) => {
     dialogueBox.style.color = ("pink");
 }
 
+//make switch case!!
 const loveBarHarassed = (event) => {
     dialogueBox.innerHTML = "";
     if (clicks == 1) {
@@ -181,6 +167,21 @@ const loveBarHarassed = (event) => {
     }
 }
 
+const returnToInstructions = () => {
+    const createdButton = document.createElement('a');
+	createdButton.href = "index.html";
+    const link = document.createTextNode("Go on another date?");
+    createdButton.appendChild(link);
+    createdButton.className += "button-class";
+    styleButton;
+	dialogueOptionsBox.appendChild(createdButton);
+}
+
+const styleButton = () => {
+    link.style.fontSize = "30px";
+    link.style.color = "white";
+    link.style.border = "1px solid pink";
+}
 
 
 dialogueOptions.forEach((option) => {
@@ -196,5 +197,3 @@ loveBar.addEventListener("click", loveBarHarassed);
 
 //switch case of what mood- dependent on width of lovebar
 //case percentage of love bar - 25% aloof 50% friendly 75% flirty 90% romantic
-//click capybara
-// click counter easter egg on love meter

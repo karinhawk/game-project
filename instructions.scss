@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Raleway";
+    background-color: rgb(167, 197, 129);
+}
+
+.window {
+    height: 70vh;
+    width: 60vw;
+    border: 3px solid rgb(177, 36, 104);
+    border-radius: 5px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(197, 28, 127);
+    color: white;
+
+    .title {
+        font-size: 40px;
+        margin: 10px;
+        font-family: "Silkscreen";
+    }
+
+    p {
+        margin: 10px;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    button {
+        height: 10vh;
+        width: 20vw;
+        margin: 15px;
+        font-size: 30px;
+        border: 2px solid pink;
+        border-radius: 10px;
+        background-color: pink;
+
+        .ok {
+            color: white;
+            font-weight: 700;
+        }
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .window {
+        height: 80vh;
+        width: 70vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .title {
+            margin: 10px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 20px;
+            margin: 5px;
+        }
+
+        button {
+            margin: 10px;
+            width: 70vw;
+        }
+    }
+}
