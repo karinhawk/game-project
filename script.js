@@ -1,7 +1,3 @@
-//if have time- have a main menu!
-//have some dialogue to click on at the start
-
-
 import {
     dialogueArray
 } from "./dialogue.js";
@@ -30,10 +26,10 @@ let clicks = 0;
 
 
 const handleUsedDialogue = (event) => {
-    if (dialogueOptions[0]) {
+    if (usedDialogue == randomizedDialogue1) {
         availableDialogue.splice(objectIndex1, 1);
         console.log("removed 1", randomizedDialogue1);
-    } else if (dialogueOptions[1]) {
+    } else if (usedDialogue == randomizedDialogue2) {
         availableDialogue.splice(objectIndex2, 1);
         console.log("removed 2", randomizedDialogue2);
     }
@@ -60,7 +56,6 @@ const doesRandomizerRun = () => {
 }
 
 const handleRandomizer = (event) => {
-    console.log("dialogue box!");
     randomizedDialogue1 = availableDialogue[Math.floor(Math.random() * availableDialogue.length)];
     randomizedDialogue2 = availableDialogue[Math.floor(Math.random() * availableDialogue.length)];
     objectIndex1 = availableDialogue.indexOf(randomizedDialogue1);
@@ -106,10 +101,10 @@ const handleTypingAnimation = (i) => {
 
 const handleLoveBar = () => {
     if (usedDialogue.likesDialogue === true) {
-        loveBar.value += 30;
+        loveBar.value += 7;
     }
     if (usedDialogue.likesDialogue !== true) {
-        loveBar.value -= 5;
+        loveBar.value -= 7;
     }
     if (loveBar.value >= 100) {
         handleWin();
@@ -150,20 +145,22 @@ const loveBarClicked = (event) => {
 //make switch case!!
 const loveBarHarassed = (event) => {
     dialogueBox.innerHTML = "";
-    if (clicks == 1) {
-        dialogueBox.innerHTML = "Don't click up here, click down there."
-    }
-    if (clicks == 3) {
-        dialogueBox.innerHTML = "You can't force love to happen. Stop messing around up here."
-    }
-    if (clicks == 5) {
-        dialogueBox.innerHTML = "I think you're bullying me now!!"
-    }
-    if (clicks == 8) {
-        dialogueBox.innerHTML = "You're a HORRIBLE PERSON"
-    }
-    if (clicks >= 10) {
-        dialogueBox.innerHTML = "..."
+    switch (clicks) {
+        case 1:
+            dialogueBox.innerHTML = "Don't click up here, click down there.";
+            break;
+        case 3:
+            dialogueBox.innerHTML = "You can't force love to happen. Stop messing around up here.";
+            break;
+        case 5:
+            dialogueBox.innerHTML = "I think you're bullying me now!!";
+            break;
+        case 8:
+            dialogueBox.innerHTML = "You're a HORRIBLE PERSON";
+            break;
+        default:
+            dialogueBox.innerHTML = "...";
+            break;
     }
 }
 

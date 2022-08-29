@@ -1,5 +1,4 @@
-export const dialogueArray = [
-    {
+export const dialogueArray = [{
         playerDialogue: "Tell me about yourself",
         capybaraDialogue: "I don't like talking about myself",
         likesDialogue: false,
@@ -56,6 +55,24 @@ export const dialogueArray = [
     {
         playerDialogue: "What are you going to order?",
         capybaraDialogue: "I can't read",
+        likesDialogue: false,
+        mood: "friendly",
+    },
+    {
+        playerDialogue: "Do you like art?",
+        capybaraDialogue: "My favourite painter is Rembrandt",
+        likesDialogue: true,
+        mood: "friendly",
+    },
+    {
+        playerDialogue: "Tell me a fun fact",
+        capybaraDialogue: "Capybaras (Hydrochoerus hydrochaeris) are the worlds largest rodent. They are well known for looking like giant guinea pigs.",
+        likesDialogue: true,
+        mood: "friendly",
+    },
+    {
+        playerDialogue: "Tell me a joke",
+        capybaraDialogue: "You're a joke",
         likesDialogue: false,
         mood: "friendly",
     },

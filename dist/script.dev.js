@@ -31,10 +31,10 @@ var usedDialogue = "";
 var clicks = 0;
 
 var handleUsedDialogue = function handleUsedDialogue(event) {
-  if (dialogueOptions[0]) {
+  if (usedDialogue == randomizedDialogue1) {
     availableDialogue.splice(objectIndex1, 1);
     console.log("removed 1", randomizedDialogue1);
-  } else if (dialogueOptions[1]) {
+  } else if (usedDialogue == randomizedDialogue2) {
     availableDialogue.splice(objectIndex2, 1);
     console.log("removed 2", randomizedDialogue2);
   }
@@ -63,7 +63,6 @@ var doesRandomizerRun = function doesRandomizerRun() {
 };
 
 var handleRandomizer = function handleRandomizer(event) {
-  console.log("dialogue box!");
   randomizedDialogue1 = availableDialogue[Math.floor(Math.random() * availableDialogue.length)];
   randomizedDialogue2 = availableDialogue[Math.floor(Math.random() * availableDialogue.length)];
   objectIndex1 = availableDialogue.indexOf(randomizedDialogue1);
@@ -110,11 +109,11 @@ var handleTypingAnimation = function handleTypingAnimation(i) {
 
 var handleLoveBar = function handleLoveBar() {
   if (usedDialogue.likesDialogue === true) {
-    loveBar.value += 30;
+    loveBar.value += 7;
   }
 
   if (usedDialogue.likesDialogue !== true) {
-    loveBar.value -= 5;
+    loveBar.value -= 7;
   }
 
   if (loveBar.value >= 100) {
@@ -158,24 +157,26 @@ var loveBarClicked = function loveBarClicked(event) {
 var loveBarHarassed = function loveBarHarassed(event) {
   dialogueBox.innerHTML = "";
 
-  if (clicks == 1) {
-    dialogueBox.innerHTML = "Don't click up here, click down there.";
-  }
+  switch (clicks) {
+    case 1:
+      dialogueBox.innerHTML = "Don't click up here, click down there.";
+      break;
 
-  if (clicks == 3) {
-    dialogueBox.innerHTML = "You can't force love to happen. Stop messing around up here.";
-  }
+    case 3:
+      dialogueBox.innerHTML = "You can't force love to happen. Stop messing around up here.";
+      break;
 
-  if (clicks == 5) {
-    dialogueBox.innerHTML = "I think you're bullying me now!!";
-  }
+    case 5:
+      dialogueBox.innerHTML = "I think you're bullying me now!!";
+      break;
 
-  if (clicks == 8) {
-    dialogueBox.innerHTML = "You're a HORRIBLE PERSON";
-  }
+    case 8:
+      dialogueBox.innerHTML = "You're a HORRIBLE PERSON";
+      break;
 
-  if (clicks >= 10) {
-    dialogueBox.innerHTML = "...";
+    default:
+      dialogueBox.innerHTML = "...";
+      break;
   }
 };
 
