@@ -12,23 +12,23 @@
 <body>
     <audio autoplay loop>
         <source src="./music/compassionate-cafe.mp3" type="audio/wav" />
-      </audio>
+    </audio>
     <div class="game-container">
-        <div class="love-bar">
-            <h1>Love-Meter</h1>
-            <progress class="love-meter" value="25" max="100"></progress>
+        <div class="love">
+            <h1 class="love__title">Love-Meter</h1>
+            <progress class="love__bar" value="25" max="100"></progress>
         </div>
-    <div class="dialogue-options-grid">
-        <ul class="options-box">
-            <li value="a" class="dialogue-options"></li>
-            <li value="b" class="dialogue-options"></li>
-        </ul>
-    </div>
-    <div class="capybara-div"></div>
-    <div class="dialogue-box">
-        <p></p>
-    </div>
-    <script src="script.js" type="module"></script>
+        <div class="options">
+            <ul class="options__list">
+                <li value="a" class="options__list__items"></li>
+                <li value="b" class="options__list__items"></li>
+            </ul>
+        </div>
+        <div class="capybara"></div>
+        <div class="dialogue">
+            <p class="dialogue__text">Click here to think about what to say</p>
+        </div>
+        <script src="script.js" type="module"></script>
     </div>
 </body>
 

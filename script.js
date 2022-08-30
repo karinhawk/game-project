@@ -4,11 +4,11 @@ import {
 
 console.log(dialogueArray);
 
-const dialogueOptions = document.querySelectorAll(".dialogue-options");
-const dialogueBox = document.querySelector(".dialogue-box");
-const loveBar = document.querySelector(".love-meter");
-const tableImage = document.querySelector(".capybara-div");
-const dialogueOptionsBox = document.querySelector(".options-box");
+const dialogueOptions = document.querySelectorAll(".options__list__items");
+const dialogueBox = document.querySelector(".dialogue");
+const loveBar = document.querySelector(".love__bar");
+const tableImage = document.querySelector(".capybara");
+const dialogueOptionsBox = document.querySelector(".options__list");
 
 
 let availableDialogue = [...dialogueArray];
@@ -46,6 +46,7 @@ const handleGameOver = () => {
 const doesRandomizerRun = () => {
     dialogueBox.style.color = ("white");
     dialogueBox.innerHTML = "";
+    tableImage.style.backgroundImage = "url(./images/capybara.png)";
     if (availableDialogue.length <= 1) {
         dialogueOptions[0].innerHTML = "";
         dialogueOptions[1].innerHTML = "";
@@ -85,12 +86,13 @@ const handleDialogueChosen = (event) => {
         usedDialogue = randomizedDialogue2;
         capybaraResponse = capybaraDialogue2;
     }
+    handleSpook();
     handleTypingAnimation(0);
     handleUsedDialogue();
     handleLoveBar();
 }
 
-const handleTypingAnimation = (i) => {
+const handleTypingAnimation = async (i) => {
     console.log(capybaraResponse.length);
     if (i < capybaraResponse.length) {
         dialogueBox.innerHTML += capybaraResponse.charAt(i);
@@ -101,13 +103,16 @@ const handleTypingAnimation = (i) => {
 
 const handleLoveBar = () => {
     if (usedDialogue.likesDialogue === true) {
-        loveBar.value += 7;
+        loveBar.value += 12;
     }
     if (usedDialogue.likesDialogue !== true) {
-        loveBar.value -= 7;
+        loveBar.value -= 10;
     }
     if (loveBar.value >= 100) {
         handleWin();
+    }
+    if (loveBar.value == 0) {
+        handleGameOver();
     }
 }
 
@@ -136,13 +141,19 @@ const capybaraClicked = (event) => {
     }
 }
 
+const handleSpook = () => {
+    if (usedDialogue.playerDialogue == "BOO") {
+        tableImage.style.backgroundImage = "url(./images/just-table.png)";
+        dialogueBox.innerHTML = "Capybara hides under the table"
+    }
+}
+
 const loveBarClicked = (event) => {
     clicks++;
     dialogueBox.innerHTML = "";
     dialogueBox.style.color = ("pink");
 }
 
-//make switch case!!
 const loveBarHarassed = (event) => {
     dialogueBox.innerHTML = "";
     switch (clicks) {
@@ -192,5 +203,5 @@ tableImage.addEventListener("click", capybaraClicked);
 loveBar.addEventListener("click", loveBarClicked);
 loveBar.addEventListener("click", loveBarHarassed);
 
-//switch case of what mood- dependent on width of lovebar
-//case percentage of love bar - 25% aloof 50% friendly 75% flirty 90% romantic
+//typing async await
+//split css into sep files

@@ -22,7 +22,7 @@ body {
   background-color: #a7c581;
 }
 
-.window {
+.card {
   height: 70vh;
   width: 60vw;
   border: 3px solid #b12468;
@@ -35,17 +35,17 @@ body {
   background-color: #c51c7f;
   color: white;
 }
-.window .title {
+.card__title {
   font-size: 40px;
   margin: 10px;
   font-family: "Silkscreen";
 }
-.window p {
+.card__text {
   margin: 10px;
   font-size: 30px;
   text-align: center;
 }
-.window button {
+.card__button {
   height: 10vh;
   width: 20vw;
   margin: 15px;
@@ -54,29 +54,29 @@ body {
   border-radius: 10px;
   background-color: pink;
 }
-.window button .ok {
+.card__button__text {
   color: white;
   font-weight: 700;
 }
 
 @media screen and (max-width: 720px) {
-  .window {
+  .card {
     height: 80vh;
     width: 70vw;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
   }
-  .window .title {
+  .card__title {
     margin: 10px;
     font-size: 30px;
     text-align: center;
   }
-  .window p {
+  .card__text {
     font-size: 20px;
     margin: 5px;
   }
-  .window button {
+  .card__button {
     margin: 10px;
     width: 70vw;
   }

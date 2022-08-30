@@ -11,11 +11,11 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 console.log(_dialogue.dialogueArray);
-var dialogueOptions = document.querySelectorAll(".dialogue-options");
-var dialogueBox = document.querySelector(".dialogue-box");
-var loveBar = document.querySelector(".love-meter");
-var tableImage = document.querySelector(".capybara-div");
-var dialogueOptionsBox = document.querySelector(".options-box");
+var dialogueOptions = document.querySelectorAll(".options__list__items");
+var dialogueBox = document.querySelector(".dialogue");
+var loveBar = document.querySelector(".love__bar");
+var tableImage = document.querySelector(".capybara");
+var dialogueOptionsBox = document.querySelector(".options__list");
 
 var availableDialogue = _toConsumableArray(_dialogue.dialogueArray);
 
@@ -52,6 +52,7 @@ var handleGameOver = function handleGameOver() {
 var doesRandomizerRun = function doesRandomizerRun() {
   dialogueBox.style.color = "white";
   dialogueBox.innerHTML = "";
+  tableImage.style.backgroundImage = "url(./images/capybara.png)";
 
   if (availableDialogue.length <= 1) {
     dialogueOptions[0].innerHTML = "";
@@ -92,32 +93,48 @@ var handleDialogueChosen = function handleDialogueChosen(event) {
     capybaraResponse = capybaraDialogue2;
   }
 
+  handleSpook();
   handleTypingAnimation(0);
   handleUsedDialogue();
   handleLoveBar();
 };
 
 var handleTypingAnimation = function handleTypingAnimation(i) {
-  console.log(capybaraResponse.length);
+  return regeneratorRuntime.async(function handleTypingAnimation$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          console.log(capybaraResponse.length);
 
-  if (i < capybaraResponse.length) {
-    dialogueBox.innerHTML += capybaraResponse.charAt(i);
-    i++;
-    setTimeout(handleTypingAnimation, 50, i);
-  }
+          if (i < capybaraResponse.length) {
+            dialogueBox.innerHTML += capybaraResponse.charAt(i);
+            i++;
+            setTimeout(handleTypingAnimation, 50, i);
+          }
+
+        case 2:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
 };
 
 var handleLoveBar = function handleLoveBar() {
   if (usedDialogue.likesDialogue === true) {
-    loveBar.value += 7;
+    loveBar.value += 12;
   }
 
   if (usedDialogue.likesDialogue !== true) {
-    loveBar.value -= 7;
+    loveBar.value -= 10;
   }
 
   if (loveBar.value >= 100) {
     handleWin();
+  }
+
+  if (loveBar.value == 0) {
+    handleGameOver();
   }
 };
 
@@ -147,12 +164,18 @@ var capybaraClicked = function capybaraClicked(event) {
   }
 };
 
+var handleSpook = function handleSpook() {
+  if (usedDialogue.playerDialogue == "BOO") {
+    tableImage.style.backgroundImage = "url(./images/just-table.png)";
+    dialogueBox.innerHTML = "Capybara hides under the table";
+  }
+};
+
 var loveBarClicked = function loveBarClicked(event) {
   clicks++;
   dialogueBox.innerHTML = "";
   dialogueBox.style.color = "pink";
-}; //make switch case!!
-
+};
 
 var loveBarHarassed = function loveBarHarassed(event) {
   dialogueBox.innerHTML = "";
@@ -202,5 +225,5 @@ dialogueOptions.forEach(function (option) {
 dialogueBox.addEventListener("click", doesRandomizerRun);
 tableImage.addEventListener("click", capybaraClicked);
 loveBar.addEventListener("click", loveBarClicked);
-loveBar.addEventListener("click", loveBarHarassed); //switch case of what mood- dependent on width of lovebar
-//case percentage of love bar - 25% aloof 50% friendly 75% flirty 90% romantic
+loveBar.addEventListener("click", loveBarHarassed); //typing async await
+//split css into sep files

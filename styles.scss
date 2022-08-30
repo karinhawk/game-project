@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 
 $fun-font: "Silkscreen";
+$font-text: "Raleway";
 $color-primary: rgb(193, 75, 102);
 $color-secondary: rgb(253, 115, 154);
 $color-tertiary: rgb(167, 71, 105);
@@ -44,7 +45,7 @@ a:visited {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: "Raleway";
+    font-family: $font-text;
     display: grid;
     grid-template-columns: 3fr 4fr 1fr;
     grid-template-rows: 1fr 9fr 3fr;
@@ -55,7 +56,7 @@ a:visited {
         "dialogue dialogue dialogue";
 }
 
-.capybara-div {
+.capybara {
     grid-area: capybara;
     display: flex;
     align-items: center;
@@ -67,7 +68,7 @@ a:visited {
 }
 
 
-.love-bar {
+.love {
     font-family: $fun-font;
     grid-area: love;
     border: 2px solid $color-secondary;
@@ -79,31 +80,33 @@ a:visited {
     height: 50%;
     width: 30vw;
 
-    h1 {
+    &__title {
         margin: 5px;
     }
 
-    .love-meter { 
+    &__bar {
         -webkit-appearance: none;
         appearance: none;
-     }
-     
-     .love-meter::-webkit-progress-bar {
-          background-color: #eee;
-          border-radius: 2px;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
-          width: 30vw;
-     }
-     .love-meter[value]::-webkit-progress-value {
-        background-image:
-             -webkit-linear-gradient(left, rgb(204, 0, 82), #f44);
-    
-        border-radius: 2px; 
-        background-size: 35px 20px, 100% 100%, 100% 100%;
-      }  
+
+        &::-webkit-progress-bar {
+            background-color: #eee;
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+            width: 30vw;
+        }
+
+        &[value]::-webkit-progress-value {
+            background-image:
+                -webkit-linear-gradient(left, rgb(204, 0, 82), #f44);
+
+            border-radius: 2px;
+            background-size: 35px 20px, 100% 100%, 100% 100%;
+        }
+    }
+
 }
 
-.dialogue-options-grid {
+.options {
     grid-area: option;
     border: 2px solid $color-primary;
     border-radius: 10px;
@@ -113,7 +116,7 @@ a:visited {
     height: 65%;
     margin: 30px;
 
-    .options-box {
+    &__list {
         height: 100%;
         list-style: none;
         text-align: center;
@@ -122,7 +125,7 @@ a:visited {
         justify-content: space-around;
         align-items: center;
 
-        .dialogue-options {
+        &__items {
             text-align: center;
             font-size: 30px;
 
@@ -133,7 +136,7 @@ a:visited {
     }
 }
 
-.dialogue-box {
+.dialogue {
     grid-area: dialogue;
     border: 2px solid $color-tertiary;
     background-color: $color-tertiary;
@@ -143,34 +146,36 @@ a:visited {
 }
 
 @media screen and (max-width: 720px) {
+
     .game-container {
         position: fixed;
         max-height: 100vh;
         max-width: 100vw;
         background-size: cover;
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 2fr 6fr 3fr;
+        grid-template-rows: 1fr 6fr 2fr 3fr;
         grid-template-areas:
             "love"
-            "dialogue"
             "capybara"
-            "option";
+            "option"
+            "dialogue";
     }
 
 
-    .love-bar {
+    .love {
         margin: 10px;
         width: 85vw;
 
-        h1 {
+        &__title {
             margin: 0px;
         }
-        .love-meter::-webkit-progress-bar {
+
+        &__bar::-webkit-progress-bar {
             width: 85vw;
-       }
+        }
     }
 
-    .dialogue-box {
+    .dialogue {
         max-width: 100vw;
         font-size: 20px;
         padding: 15px;
@@ -178,21 +183,22 @@ a:visited {
         align-items: center;
     }
 
-    .capybara-div {
+    .capybara {
         flex-direction: column;
     }
 
-    .dialogue-options-grid {
+    .options {
         max-width: 100vw;
         margin: 0;
         height: 20vh;
         border-radius: 0px;
 
-        .dialogue-options {
-            font-size: 20px;
-            margin: 0;
+        &__list__items {
+            font-size: 15px;
+            margin: 8px;
         }
     }
+
     .button-class {
         margin: 15px;
         margin-top: 10px;
