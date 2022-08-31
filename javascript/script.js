@@ -10,7 +10,6 @@ const loveBar = document.querySelector(".love__bar");
 const tableImage = document.querySelector(".capybara");
 const dialogueOptionsBox = document.querySelector(".options__list");
 
-
 let availableDialogue = [...dialogueArray];
 console.log(availableDialogue);
 
@@ -24,36 +23,18 @@ let capybaraResponse = "";
 let usedDialogue = "";
 let clicks = 0;
 
-
-const handleUsedDialogue = (event) => {
-    if (usedDialogue == randomizedDialogue1) {
-        availableDialogue.splice(objectIndex1, 1);
-        console.log("removed 1", randomizedDialogue1);
-    } else if (usedDialogue == randomizedDialogue2) {
-        availableDialogue.splice(objectIndex2, 1);
-        console.log("removed 2", randomizedDialogue2);
-    }
-    console.log("these are the remaining ones", availableDialogue);
-}
-
-const handleGameOver = () => {
-    dialogueBox.removeEventListener("click", doesRandomizerRun);
-    tableImage.style.backgroundImage = "url(./images/just-table.png)";
-    dialogueBox.innerHTML = "Capybara got bored of this awful date and left..."
-    returnToInstructions();
-}
-
 const doesRandomizerRun = () => {
-    dialogueBox.style.color = ("white");
-    dialogueBox.innerHTML = "";
-    tableImage.style.backgroundImage = "url(./images/capybara.png)";
-    if (availableDialogue.length <= 1) {
-        dialogueOptions[0].innerHTML = "";
-        dialogueOptions[1].innerHTML = "";
-        handleGameOver();
-    } else {
-        handleRandomizer();
-    }
+    capybaraResponse = "";
+        dialogueBox.style.color = ("white");
+        dialogueBox.innerHTML = "";
+        tableImage.style.backgroundImage = "url(./images/capybara.png)";
+        if (availableDialogue.length <= 1) {
+            dialogueOptions[0].innerHTML = "";
+            dialogueOptions[1].innerHTML = "";
+            handleGameOver();
+        } else {
+            handleRandomizer();
+        }
 }
 
 const handleRandomizer = (event) => {
@@ -77,28 +58,41 @@ const handleRandomizer = (event) => {
 
 
 const handleDialogueChosen = (event) => {
-    dialogueOptions[0].innerHTML = "";
-    dialogueOptions[1].innerHTML = "";
-    if (event.target == dialogueOptions[0]) {
-        usedDialogue = randomizedDialogue1;
-        capybaraResponse = capybaraDialogue1;
-    } else {
-        usedDialogue = randomizedDialogue2;
-        capybaraResponse = capybaraDialogue2;
-    }
-    handleSpook();
-    handleTypingAnimation(0);
-    handleUsedDialogue();
-    handleLoveBar();
+        dialogueOptions[0].innerHTML = "";
+        dialogueOptions[1].innerHTML = "";
+        if (event.target == dialogueOptions[0]) {
+            usedDialogue = randomizedDialogue1;
+            capybaraResponse = capybaraDialogue1;
+        } else {
+            usedDialogue = randomizedDialogue2;
+            capybaraResponse = capybaraDialogue2;
+        }
+        setTimeout(handleTypingAnimation(0), 5000);
+        handleSpook();
+        handleUsedDialogue();
+        handleLoveBar();
 }
 
-const handleTypingAnimation = async (i) => {
-    console.log(capybaraResponse.length);
+const handleUsedDialogue = (event) => {
+    if (usedDialogue == randomizedDialogue1) {
+        availableDialogue.splice(objectIndex1, 1);
+        console.log("removed 1", randomizedDialogue1);
+    } else if (usedDialogue == randomizedDialogue2) {
+        availableDialogue.splice(objectIndex2, 1);
+        console.log("removed 2", randomizedDialogue2);
+    }
+    console.log("these are the remaining ones", availableDialogue);
+}
+
+
+const handleTypingAnimation = (i) => {
+    dialogueBox.removeEventListener("click", doesRandomizerRun);
     if (i < capybaraResponse.length) {
         dialogueBox.innerHTML += capybaraResponse.charAt(i);
         i++;
         setTimeout(handleTypingAnimation, 50, i);
     }
+    dialogueBox.addEventListener("click", doesRandomizerRun);
 }
 
 const handleLoveBar = () => {
@@ -115,39 +109,6 @@ const handleLoveBar = () => {
         handleGameOver();
     }
 }
-
-const handleBlush = () => {
-    setTimeout(function () {
-        tableImage.style.backgroundImage = "url(./images/blush-capy.png)";
-    }, 1000);
-    dialogueBox.innerHTML = "*smooch*";
-}
-
-const handleWin = () => {
-    dialogueBox.removeEventListener("click", doesRandomizerRun);
-    setTimeout(function () {
-        tableImage.style.backgroundImage = "url(./images/front-capy.png)";
-        handleBlush();
-    }, 1000);
-    returnToInstructions();
-}
-
-const capybaraClicked = (event) => {
-    dialogueBox.innerHTML = "";
-    dialogueBox.style.color = ("pink");
-    dialogueBox.innerHTML = "A very handsome capybara"
-    if (loveBar.value >= 100) {
-        dialogueBox.innerHTML = "does this capybara have any personal space?"
-    }
-}
-
-const handleSpook = () => {
-    if (usedDialogue.playerDialogue == "BOO") {
-        tableImage.style.backgroundImage = "url(./images/just-table.png)";
-        dialogueBox.innerHTML = "Capybara hides under the table"
-    }
-}
-
 const loveBarClicked = (event) => {
     clicks++;
     dialogueBox.innerHTML = "";
@@ -175,31 +136,62 @@ const loveBarHarassed = (event) => {
     }
 }
 
+const capybaraClicked = (event) => {
+    dialogueBox.innerHTML = "";
+    dialogueBox.style.color = ("pink");
+    dialogueBox.innerHTML = "A very handsome capybara"
+    if (loveBar.value >= 100) {
+        dialogueBox.innerHTML = "does this capybara have any personal space?"
+    }
+}
+
+const handleSpook = async () => {
+    if (usedDialogue.playerDialogue == "BOO") {
+        capybaraResponse = "";
+        tableImage.style.backgroundImage = "url(./images/just-table.png)";
+        dialogueBox.innerHTML = "Capybara hides under the table"
+    }
+}
+
+const handleBlush = () => {
+    setTimeout(function () {
+        tableImage.style.backgroundImage = "url(./images/blush-capy.png)";
+    }, 1000);
+    dialogueBox.innerHTML = "*smooch*";
+}
+
+const handleWin = () => {
+    capybaraResponse = "";
+    dialogueBox.removeEventListener("click", doesRandomizerRun);
+    setTimeout(function () {
+        tableImage.style.backgroundImage = "url(./images/front-capy.png)";
+        handleBlush();
+    }, 1000);
+    returnToInstructions();
+}
+
+const handleGameOver = () => {
+    capybaraResponse = "";
+    dialogueBox.removeEventListener("click", doesRandomizerRun);
+    tableImage.style.backgroundImage = "url(./images/just-table.png)";
+    dialogueBox.innerHTML = "Capybara got bored of this awful date and left..."
+    returnToInstructions();
+}
+
 const returnToInstructions = () => {
     const createdButton = document.createElement('a');
 	createdButton.href = "index.html";
     const link = document.createTextNode("Go on another date?");
     createdButton.appendChild(link);
     createdButton.className += "button-class";
-    styleButton;
 	dialogueOptionsBox.appendChild(createdButton);
 }
-
-const styleButton = () => {
-    link.style.fontSize = "30px";
-    link.style.color = "white";
-    link.style.border = "1px solid pink";
-}
-
 
 dialogueOptions.forEach((option) => {
     option.addEventListener("click", handleDialogueChosen);
 });
-
 dialogueBox.addEventListener("click", doesRandomizerRun);
-
 tableImage.addEventListener("click", capybaraClicked);
-
 loveBar.addEventListener("click", loveBarClicked);
 loveBar.addEventListener("click", loveBarHarassed);
 

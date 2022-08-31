@@ -1,0 +1,51 @@
+@use "_instructionsBase" as *;
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: $font-text;
+    background-color: $color-primary;
+}
+
+.card {
+    height: 80vh;
+    width: 70vw;
+    border: 3px solid $color-secondary;
+    border-radius: 5px;
+    padding: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $color-secondary;
+    color: $color-text;
+
+    &__title {
+        font-size: 40px;
+        margin: 10px;
+        font-family: $font-fun;
+    }
+
+    &__text {
+        margin: 10px;
+        font-size: 30px;
+    }
+
+    &__button {
+        height: 10vh;
+        width: 20vw;
+        margin: 15px;
+        font-size: 30px;
+        border: 2px solid $color-button;
+        border-radius: 10px;
+        background-color: $color-button;
+
+        &__text {
+            color:$color-text;
+            font-weight: 700;
+        }
+    }
+}

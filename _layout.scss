@@ -1,0 +1,109 @@
+@use "_base" as *;
+
+.game-container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(./images/restaraunt.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: $font-text;
+    display: grid;
+    grid-template-columns: 3fr 4fr 1fr;
+    grid-template-rows: 1fr 9fr 3fr;
+    row-gap: 0;
+    grid-template-areas:
+        "love capybara capybara"
+        "option capybara capybara"
+        "dialogue dialogue dialogue";
+}
+
+.capybara {
+    grid-area: capybara;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(./images/capybara.png);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+
+.love {
+    font-family: $fun-font;
+    grid-area: love;
+    border: 2px solid $color-secondary;
+    border-radius: 8px;
+    background-color: $color-secondary;
+    color: $color-text;
+    padding: 15px;
+    margin: 30px;
+    height: 50%;
+    width: 30vw;
+
+    &__title {
+        margin: 5px;
+    }
+
+    &__bar {
+        -webkit-appearance: none;
+        appearance: none;
+
+        &::-webkit-progress-bar {
+            background-color: #eee;
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+            width: 30vw;
+        }
+
+        &[value]::-webkit-progress-value {
+            background-image:
+                -webkit-linear-gradient(left, rgb(204, 0, 82), #f44);
+
+            border-radius: 2px;
+            background-size: 35px 20px, 100% 100%, 100% 100%;
+        }
+    }
+
+}
+
+.options {
+    grid-area: option;
+    border: 2px solid $color-primary;
+    border-radius: 10px;
+    background-color: $color-primary;
+    color: $color-text;
+    padding: 20px;
+    height: 65%;
+    margin: 30px;
+
+    &__list {
+        height: 100%;
+        list-style: none;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        &__items {
+            text-align: center;
+            font-size: 30px;
+
+            &:hover {
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+.dialogue {
+    grid-area: dialogue;
+    border: 2px solid $color-tertiary;
+    background-color: $color-tertiary;
+    padding: 30px;
+    color: $color-text;
+    font-size: 30px;
+}
+

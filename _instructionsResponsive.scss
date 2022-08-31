@@ -1,0 +1,27 @@
+@use "_instructionsBase" as *;
+
+@media screen and (max-width: 720px) {
+    .card {
+        height: 80vh;
+        width: 70vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        &__title {
+            margin: 10px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        &__text {
+            font-size: 20px;
+            margin: 5px;
+        }
+
+        &__button {
+            margin: 10px;
+            width: 70vw;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+@use "_base" as *;
+
+.button-class {
+    height: 20vh;
+    width: 30vw;
+    margin: 15px;
+    font-size: 40px;
+    padding: 10px;
+    border: 2px solid $color-button;
+    border-radius: 10px;
+    background-color: $color-button;
+    font-weight: 700;
+    color: $color-text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

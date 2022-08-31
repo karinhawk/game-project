@@ -30,26 +30,8 @@ var capybaraResponse = "";
 var usedDialogue = "";
 var clicks = 0;
 
-var handleUsedDialogue = function handleUsedDialogue(event) {
-  if (usedDialogue == randomizedDialogue1) {
-    availableDialogue.splice(objectIndex1, 1);
-    console.log("removed 1", randomizedDialogue1);
-  } else if (usedDialogue == randomizedDialogue2) {
-    availableDialogue.splice(objectIndex2, 1);
-    console.log("removed 2", randomizedDialogue2);
-  }
-
-  console.log("these are the remaining ones", availableDialogue);
-};
-
-var handleGameOver = function handleGameOver() {
-  dialogueBox.removeEventListener("click", doesRandomizerRun);
-  tableImage.style.backgroundImage = "url(./images/just-table.png)";
-  dialogueBox.innerHTML = "Capybara got bored of this awful date and left...";
-  returnToInstructions();
-};
-
 var doesRandomizerRun = function doesRandomizerRun() {
+  capybaraResponse = "";
   dialogueBox.style.color = "white";
   dialogueBox.innerHTML = "";
   tableImage.style.backgroundImage = "url(./images/capybara.png)";
@@ -93,31 +75,34 @@ var handleDialogueChosen = function handleDialogueChosen(event) {
     capybaraResponse = capybaraDialogue2;
   }
 
+  setTimeout(handleTypingAnimation(0), 5000);
   handleSpook();
-  handleTypingAnimation(0);
   handleUsedDialogue();
   handleLoveBar();
 };
 
+var handleUsedDialogue = function handleUsedDialogue(event) {
+  if (usedDialogue == randomizedDialogue1) {
+    availableDialogue.splice(objectIndex1, 1);
+    console.log("removed 1", randomizedDialogue1);
+  } else if (usedDialogue == randomizedDialogue2) {
+    availableDialogue.splice(objectIndex2, 1);
+    console.log("removed 2", randomizedDialogue2);
+  }
+
+  console.log("these are the remaining ones", availableDialogue);
+};
+
 var handleTypingAnimation = function handleTypingAnimation(i) {
-  return regeneratorRuntime.async(function handleTypingAnimation$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          console.log(capybaraResponse.length);
+  dialogueBox.removeEventListener("click", doesRandomizerRun);
 
-          if (i < capybaraResponse.length) {
-            dialogueBox.innerHTML += capybaraResponse.charAt(i);
-            i++;
-            setTimeout(handleTypingAnimation, 50, i);
-          }
+  if (i < capybaraResponse.length) {
+    dialogueBox.innerHTML += capybaraResponse.charAt(i);
+    i++;
+    setTimeout(handleTypingAnimation, 50, i);
+  }
 
-        case 2:
-        case "end":
-          return _context.stop();
-      }
-    }
-  });
+  dialogueBox.addEventListener("click", doesRandomizerRun);
 };
 
 var handleLoveBar = function handleLoveBar() {
@@ -135,39 +120,6 @@ var handleLoveBar = function handleLoveBar() {
 
   if (loveBar.value == 0) {
     handleGameOver();
-  }
-};
-
-var handleBlush = function handleBlush() {
-  setTimeout(function () {
-    tableImage.style.backgroundImage = "url(./images/blush-capy.png)";
-  }, 1000);
-  dialogueBox.innerHTML = "*smooch*";
-};
-
-var handleWin = function handleWin() {
-  dialogueBox.removeEventListener("click", doesRandomizerRun);
-  setTimeout(function () {
-    tableImage.style.backgroundImage = "url(./images/front-capy.png)";
-    handleBlush();
-  }, 1000);
-  returnToInstructions();
-};
-
-var capybaraClicked = function capybaraClicked(event) {
-  dialogueBox.innerHTML = "";
-  dialogueBox.style.color = "pink";
-  dialogueBox.innerHTML = "A very handsome capybara";
-
-  if (loveBar.value >= 100) {
-    dialogueBox.innerHTML = "does this capybara have any personal space?";
-  }
-};
-
-var handleSpook = function handleSpook() {
-  if (usedDialogue.playerDialogue == "BOO") {
-    tableImage.style.backgroundImage = "url(./images/just-table.png)";
-    dialogueBox.innerHTML = "Capybara hides under the table";
   }
 };
 
@@ -203,20 +155,67 @@ var loveBarHarassed = function loveBarHarassed(event) {
   }
 };
 
+var capybaraClicked = function capybaraClicked(event) {
+  dialogueBox.innerHTML = "";
+  dialogueBox.style.color = "pink";
+  dialogueBox.innerHTML = "A very handsome capybara";
+
+  if (loveBar.value >= 100) {
+    dialogueBox.innerHTML = "does this capybara have any personal space?";
+  }
+};
+
+var handleSpook = function handleSpook() {
+  return regeneratorRuntime.async(function handleSpook$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          if (usedDialogue.playerDialogue == "BOO") {
+            capybaraResponse = "";
+            tableImage.style.backgroundImage = "url(./images/just-table.png)";
+            dialogueBox.innerHTML = "Capybara hides under the table";
+          }
+
+        case 1:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
+};
+
+var handleBlush = function handleBlush() {
+  setTimeout(function () {
+    tableImage.style.backgroundImage = "url(./images/blush-capy.png)";
+  }, 1000);
+  dialogueBox.innerHTML = "*smooch*";
+};
+
+var handleWin = function handleWin() {
+  capybaraResponse = "";
+  dialogueBox.removeEventListener("click", doesRandomizerRun);
+  setTimeout(function () {
+    tableImage.style.backgroundImage = "url(./images/front-capy.png)";
+    handleBlush();
+  }, 1000);
+  returnToInstructions();
+};
+
+var handleGameOver = function handleGameOver() {
+  capybaraResponse = "";
+  dialogueBox.removeEventListener("click", doesRandomizerRun);
+  tableImage.style.backgroundImage = "url(./images/just-table.png)";
+  dialogueBox.innerHTML = "Capybara got bored of this awful date and left...";
+  returnToInstructions();
+};
+
 var returnToInstructions = function returnToInstructions() {
   var createdButton = document.createElement('a');
   createdButton.href = "index.html";
   var link = document.createTextNode("Go on another date?");
   createdButton.appendChild(link);
   createdButton.className += "button-class";
-  styleButton;
   dialogueOptionsBox.appendChild(createdButton);
-};
-
-var styleButton = function styleButton() {
-  link.style.fontSize = "30px";
-  link.style.color = "white";
-  link.style.border = "1px solid pink";
 };
 
 dialogueOptions.forEach(function (option) {
