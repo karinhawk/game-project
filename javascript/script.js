@@ -195,5 +195,3 @@ tableImage.addEventListener("click", capybaraClicked);
 loveBar.addEventListener("click", loveBarClicked);
 loveBar.addEventListener("click", loveBarHarassed);
 
-//typing async await
-//split css into sep files
